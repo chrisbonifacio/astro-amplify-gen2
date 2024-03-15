@@ -7,4 +7,5 @@ export default defineConfig({
   integrations: [react()],
   output: "server",
   adapter: awsAmplify(),
+  trailingSlash: "always",
 });
