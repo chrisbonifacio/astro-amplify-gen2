@@ -12,6 +12,7 @@ frontend:
         - npm ci
     build:
       commands:
+        - npm prune --production
         - npm run build
   artifacts:
     baseDirectory: .amplify-hosting
