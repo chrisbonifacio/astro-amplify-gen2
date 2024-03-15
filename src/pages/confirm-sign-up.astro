@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ConfirmSignUp from "../components/ConfirmSignUp.astro";
+import { setupAmplifyServerApi } from "../../utils/amplifyServerUtils";
+
+const { cookies } = Astro;
+
+let user;
+
+try {
+  const amplifyServerApi = setupAmplifyServerApi(cookies);
+
+  user = await amplifyServerApi.Auth.getCurrentUser();
+
+  return Astro.redirect("/");
+} catch (error) {
+  // no-op
+}
+---
+
+<Layout title="Sign Up">
+  <ConfirmSignUp />
+</Layout>
