@@ -48,6 +48,11 @@ export const TodoList = (props: { todos: ListTodosQuery }) => {
       done: !currentStatus,
     });
 
+    if (errors) {
+      window.alert(JSON.stringify(errors.map((e) => e.message)));
+      return;
+    }
+
     const updatedTodoIndex = todos.findIndex((todo) => todo.id === id);
 
     const updatedTodos = [...todos];
