@@ -19,10 +19,10 @@
     "astro-aws-amplify": "^0.0.9",
     "aws-amplify": "^6.0.20",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@aws-amplify/backend": "^0.13.0-beta.6"
   },
   "devDependencies": {
-    "@aws-amplify/backend": "^0.13.0-beta.6",
     "@aws-amplify/backend-cli": "^0.12.0-beta.6",
     "aws-cdk": "^2.133.0",
     "aws-cdk-lib": "^2.133.0",
