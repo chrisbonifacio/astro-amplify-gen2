@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ConfirmSignUp from "../components/ConfirmSignUp.astro";
+import ConfirmSignUpForm from "../components/ConfirmSignUpForm.astro";
 import { setupAmplifyServerApi } from "../../utils/amplifyServerUtils";
 
 const { cookies } = Astro;
@@ -19,5 +19,5 @@ try {
 ---
 
 <Layout title="Sign Up">
-  <ConfirmSignUp />
+  <ConfirmSignUpForm />
 </Layout>
