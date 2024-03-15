@@ -55,7 +55,7 @@
 
     try {
       await signUp(signInInput);
-      window.location.href = "/confirm-sign-up";
+      window.location.href = "/confirm-sign-up/";
     } catch (error) {
       window.alert(error);
     }
@@ -66,6 +66,6 @@
     ?.addEventListener("submit", handleSignUp);
 
   document.getElementById("sign-in-button")?.addEventListener("click", () => {
-    window.location.href = "/sign-in";
+    window.location.href = "/sign-in/";
   });
 </script>

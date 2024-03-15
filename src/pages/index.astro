@@ -15,7 +15,7 @@ try {
   user = await amplifyServerApi.Auth.fetchUserAttributes();
 } catch (error) {
   // If the user is not logged in, redirect them to the login page
-  return Astro.redirect("/sign-in");
+  return Astro.redirect("/sign-in/");
 }
 
 const { data } = await amplifyServerApi.GraphQL.client.graphql({
@@ -43,7 +43,7 @@ const { data } = await amplifyServerApi.GraphQL.client.graphql({
           e.preventDefault();
           await signOut();
           console.log("sign out called");
-          window.location.href = "/sign-in";
+          window.location.href = "/sign-in/";
         });
     </script>
   </main>
