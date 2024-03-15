@@ -10,8 +10,27 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.4.11",
     "@astrojs/check": "^0.5.6",
-    "typescript": "^5.3.3"
+    "@astrojs/react": "^3.0.10",
+    "@aws-amplify/ui-react": "^6.1.5",
+    "@nanostores/react": "^0.7.2",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "astro": "^4.4.11",
+    "astro-aws-amplify": "^0.0.9",
+    "aws-amplify": "^6.0.19",
+    "nanostores": "^0.10.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@aws-amplify/backend": "^0.13.0-beta.6",
+    "@aws-amplify/backend-cli": "^0.12.0-beta.6",
+    "aws-cdk": "^2.132.0",
+    "aws-cdk-lib": "^2.132.0",
+    "constructs": "^10.3.0",
+    "esbuild": "^0.20.1",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.2"
   }
 }
