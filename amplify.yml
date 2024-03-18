@@ -9,12 +9,11 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm ci --omit=dev
+        - npm ci --omit=dev --omit=optional
     build:
       commands:
         - npm run build
         - npm prune --production
-        - mv node_modules ./.amplify-hosting/compute/default
         - rm -rf node_modules/astro
         - rm -rf node_modules/sharp
         - rm -rf node_modules/aws-cdk-lib
@@ -22,7 +21,12 @@ frontend:
         - rm -rf node_modules/@aws-amplify/graphql-api-construct
         - rm -rf node_modules/@aws-amplify/data-construct
         - rm -rf node_modules/@aws-amplify/codegen-ui-react
-        - rm -rf node_modules/@aws-amplify/ui-react
+        - rm -rf node_modules/@aws-amplify/storage
+        - rm -rf node_modules/@aws-amplify/analytics
+        - rm -rf node_modules/@aws-amplify/notifications
+        - rm -rf node_modules/@aws-amplify/geo
+        - rm -rf node_modules/@aws-amplify/datastore
+        - mv node_modules ./.amplify-hosting/compute/default
   artifacts:
     baseDirectory: .amplify-hosting
     files:
