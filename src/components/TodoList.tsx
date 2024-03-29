@@ -6,9 +6,9 @@ import { TodoPriority } from "../../API";
 
 type Todo = Schema["Todo"];
 
-export const TodoList = (props: { todos: ListTodosQuery }) => {
+export const TodoList = (props: { todos: ListTodosQuery | undefined }) => {
   const [todos, setTodos] = useState<Todo[]>(
-    props.todos.listTodos?.items as Todo[]
+    (props?.todos?.listTodos?.items as Todo[]) || []
   );
 
   const createTodo = async (e: React.SyntheticEvent) => {

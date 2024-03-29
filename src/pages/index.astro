@@ -3,28 +3,34 @@ import Layout from "../layouts/Layout.astro";
 import { setupAmplifyServerApi } from "../../utils/amplifyServerUtils";
 import { listTodos } from "../../queries";
 import { TodoList } from "../components/TodoList.tsx";
-
-const redirectToSignIn = () => {
-  Astro.redirect("/sign-in/");
-};
+import type { ListTodosQuery } from "../../API";
+import type { FetchUserAttributesOutput } from "aws-amplify/auth";
 
 const { cookies } = Astro;
 
-let user;
+let user: FetchUserAttributesOutput | undefined;
 
-let amplifyServerApi;
+let amplifyServerApi: ReturnType<typeof setupAmplifyServerApi> | undefined;
 
-try {
-  amplifyServerApi = setupAmplifyServerApi(cookies);
-  user = await amplifyServerApi.Auth.fetchUserAttributes();
-} catch (error) {
-  // If the user is not logged in, redirect them to the login page
-  return redirectToSignIn();
-}
+let data: ListTodosQuery | undefined;
 
-const { data } = await amplifyServerApi.GraphQL.client.graphql({
-  query: listTodos,
-});
+const checkUser = async () => {
+  try {
+    amplifyServerApi = setupAmplifyServerApi(cookies);
+    user = await amplifyServerApi.Auth.fetchUserAttributes();
+
+    const listTodosResponse = await amplifyServerApi?.GraphQL.client.graphql({
+      query: listTodos,
+    });
+
+    data = listTodosResponse.data;
+  } catch (error) {
+    // If the user is not logged in, redirect them to the login page
+    return Astro.redirect("/sign-in/");
+  }
+};
+
+checkUser();
 ---
 
 <Layout title="Welcome to Astro.">
@@ -33,7 +39,7 @@ const { data } = await amplifyServerApi.GraphQL.client.graphql({
     <h1>
       Welcome to <span class="text-gradient">Amplify + Astro</span>,
       <br />
-      <span class="text-gradient">{user.email}</span>!
+      <span class="text-gradient">{user?.email}</span>!
     </h1>
 
     <TodoList todos={data} client:only="react" />
