@@ -1,0 +1,45 @@
+<div class="container">
+  <form id="confirm-sign-up-form">
+    <h2>Confirm Sign Up</h2>
+
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="name@example.com"
+      required
+    />
+
+    <input type="text" id="code" name="code" placeholder="xxxxx" required />
+
+    <button type="submit">Confirm sign up</button>
+  </form>
+</div>
+
+<script>
+  import { confirmSignUp } from "aws-amplify/auth";
+
+  import type { ConfirmSignUpInput } from "aws-amplify/auth";
+
+  const handleConfirmSignUp = async (e: SubmitEvent) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+
+    const confirmSignUpInput: ConfirmSignUpInput = {
+      username: formData.get("email") as string,
+      confirmationCode: formData.get("code") as string,
+    };
+
+    try {
+      await confirmSignUp(confirmSignUpInput);
+      window.location.href = "/";
+    } catch (error) {
+      window.alert(error);
+    }
+  };
+
+  document
+    .getElementById("confirm-sign-up-form")
+    ?.addEventListener("submit", handleConfirmSignUp);
+</script>
