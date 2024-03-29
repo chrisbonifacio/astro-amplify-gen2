@@ -4,6 +4,10 @@ import { setupAmplifyServerApi } from "../../utils/amplifyServerUtils";
 import { listTodos } from "../../queries";
 import { TodoList } from "../components/TodoList.tsx";
 
+const redirectToSignIn = () => {
+  Astro.redirect("/sign-in/");
+};
+
 const { cookies } = Astro;
 
 let user;
@@ -15,7 +19,7 @@ try {
   user = await amplifyServerApi.Auth.fetchUserAttributes();
 } catch (error) {
   // If the user is not logged in, redirect them to the login page
-  return Astro.redirect("/sign-in/");
+  return redirectToSignIn();
 }
 
 const { data } = await amplifyServerApi.GraphQL.client.graphql({
