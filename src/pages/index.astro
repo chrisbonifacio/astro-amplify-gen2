@@ -3,34 +3,24 @@ import Layout from "../layouts/Layout.astro";
 import { setupAmplifyServerApi } from "../../utils/amplifyServerUtils";
 import { listTodos } from "../../queries";
 import { TodoList } from "../components/TodoList.tsx";
-import type { ListTodosQuery } from "../../API";
-import type { FetchUserAttributesOutput } from "aws-amplify/auth";
 
 const { cookies } = Astro;
 
-let user: FetchUserAttributesOutput | undefined;
+let user;
 
-let amplifyServerApi: ReturnType<typeof setupAmplifyServerApi> | undefined;
+let amplifyServerApi;
 
-let data: ListTodosQuery | undefined;
+try {
+  amplifyServerApi = setupAmplifyServerApi(cookies);
+  user = await amplifyServerApi.Auth.fetchUserAttributes();
+} catch (error) {
+  // If the user is not logged in, redirect them to the login page
+  return Astro.redirect("/sign-in/");
+}
 
-const checkUser = async () => {
-  try {
-    amplifyServerApi = setupAmplifyServerApi(cookies);
-    user = await amplifyServerApi.Auth.fetchUserAttributes();
-
-    const listTodosResponse = await amplifyServerApi?.GraphQL.client.graphql({
-      query: listTodos,
-    });
-
-    data = listTodosResponse.data;
-  } catch (error) {
-    // If the user is not logged in, redirect them to the login page
-    return Astro.redirect("/sign-in/");
-  }
-};
-
-checkUser();
+const { data } = await amplifyServerApi.GraphQL.client.graphql({
+  query: listTodos,
+});
 ---
 
 <Layout title="Welcome to Astro.">
@@ -39,7 +29,7 @@ checkUser();
     <h1>
       Welcome to <span class="text-gradient">Amplify + Astro</span>,
       <br />
-      <span class="text-gradient">{user?.email}</span>!
+      <span class="text-gradient">{user.email}</span>!
     </h1>
 
     <TodoList todos={data} client:only="react" />
