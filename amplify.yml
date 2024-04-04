@@ -15,6 +15,8 @@ frontend:
         - npm run build
         - npm prune --omit=dev --omit=optional
         - rm -rf node_modules/aws-cdk-lib
+        - rm -rf node_modules/@aws-amplify/backend
+        - rm -rf node_modules/@aws-amplify/backend-cli
         - rm -rf node_modules/aws-cdk
         - rm -rf node_modules/@aws-cdk
         - rm -rf node_modules/@aws-amplify/graphql-api-construct
