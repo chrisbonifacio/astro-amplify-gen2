@@ -31,7 +31,9 @@ frontend:
         - rm -rf node_modules/sharp
         - rm -rf esbuild
         - rm -rf typescript
+        - npx minify-all-js node_modules -j -m -M -p
         - mv node_modules ./.amplify-hosting/compute/default
+        
   artifacts:
     baseDirectory: .amplify-hosting
     files:
